@@ -3,5 +3,5 @@
 </template>
 
 <script setup>
-import HomeHero from '../sections/HomeHero.vue'
+  import HomeHero from '../sections/HomeHero.vue' 
 </script>

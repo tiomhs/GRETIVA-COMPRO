@@ -1,9 +1,9 @@
 <script setup>
-import AppLayout from './layouts/App.vue'
+import AppLayout from './layouts/Navbar.vue'
+import Home from './pages/Home.vue'
 </script>
 
 <template>
-  <AppLayout>
-    <RouterView />
-  </AppLayout>
+  <AppLayout></AppLayout>
+  <Home />
 </template>
