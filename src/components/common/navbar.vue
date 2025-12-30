@@ -106,9 +106,8 @@ const lastScrollTop = ref(0)
 // Config Menu (Hybrid: Ada yang Scroll, Ada yang Pindah Page)
 const menuItems = [
   { name: 'Home', href: '/', type: 'route' },
-  { name: 'Services', href: '/#services', type: 'scroll' },
-  { name: 'Selected Works', href: '/#projects', type: 'scroll' },
-  { name: 'About Us', href: '/about', type: 'route' }
+  { name: 'About Us', href: '/about', type: 'route' },
+  { name: 'Project', href: '/project', type: 'route' },
 ]
 
 // === LOGIC NAVIGASI UTAMA ===

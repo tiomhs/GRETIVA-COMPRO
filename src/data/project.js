@@ -1,27 +1,35 @@
 const projects = [
   {
+    id: 1,
     title: "Kopi Skena App",
-    category: "Mobile App • F&B",
-    desc: "Loyalty app dengan 50k+ user aktif. Desain UI yang bikin betah ngopi.",
-    image: "https://cdn.dribbble.com/userupload/12975877/file/original-13271708842605822f30501659892c57.png?resize=1200x900"
+    category: "Mobile App",
+    desc: "A loyalty app for local coffee shops with AR menu features.",
+    image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=1000&auto=format&fit=crop", 
+    link: "#"
   },
   {
-    title: "Nebula Exchange",
-    category: "Web3 • Dashboard",
-    desc: "Redesign dashboard crypto jadi lebih friendly dan gak bikin pusing.",
-    image: "https://cdn.dribbble.com/userupload/10636437/file/original-b1836798b03061614995034606138676.png?resize=1200x900"
+    id: 2,
+    title: "Nebula Finance",
+    category: "Web Dev",
+    desc: "High-performance crypto dashboard with real-time data visualization.",
+    image: "https://images.unsplash.com/photo-1642104704074-907c0698b98d?q=80&w=1000&auto=format&fit=crop",
+    link: "#"
   },
   {
-    title: "Gretiva Merch",
-    category: "E-Commerce • Branding",
-    desc: "Platform toko online streetwear dengan performa loading < 1 detik.",
-    image: "https://cdn.dribbble.com/userupload/4229649/file/original-e9895c249a044701e749a56e0d37d25e.png?resize=1200x900"
+    id: 3,
+    title: "Urban Streetwear",
+    category: "Branding",
+    desc: "Complete visual identity overhaul for a Tokyo-based fashion brand.",
+    image: "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?q=80&w=1000&auto=format&fit=crop",
+    link: "#"
   },
   {
-    title: "Gretiva Academy",
-    category: "EdTech • Platform",
-    desc: "Platform belajar online untuk talenta digital masa depan.",
-    image: "https://cdn.dribbble.com/users/4859/screenshots/14609590/media/1324734892c908580c85c4dd69c8f2bd.png?resize=800x600&vertical=center"
-  }
+    id: 4,
+    title: "EduLearn LMS",
+    category: "UI/UX",
+    desc: "Student-centered learning platform design for modern schools.",
+    image: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?q=80&w=1000&auto=format&fit=crop",
+    link: "#"
+  },
 ]
 export default projects;
