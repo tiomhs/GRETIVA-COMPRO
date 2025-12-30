@@ -1,58 +1,80 @@
 <template>
-  <section class="py-24 bg-white relative">
-    <div class="container mx-auto px-4">
+  <section class="relative py-32 bg-[#FFF8F3]">
+    
+    <div class="container mx-auto px-6">
       
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-        
-        <div class="lg:col-span-5 lg:sticky lg:top-32 mb-12 lg:mb-0">
-          
-          <span class="inline-block px-4 py-2 rounded-full bg-purple-100 text-purple-600 text-xs font-bold mb-6">
-            Decentralized reputation that actually works
-          </span>
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
 
-          <h2 class="text-4xl md:text-5xl font-bold text-gray-900 leading-tight mb-6">
-            With zPass Everyone <br />
-            Makes More Money <br />
-            Onchain
+        <div class="lg:col-span-5 sticky top-32 h-fit z-10 hidden lg:block">
+          
+          <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-orange-200 text-orange-600 text-xs font-bold tracking-widest uppercase mb-8 shadow-sm">
+            ● Selected Works
+          </div>
+
+          <h2 class="text-5xl md:text-7xl font-black text-gray-900 leading-[0.9] mb-8">
+            Stuff We <br />
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-orange-400">
+              Shipped.
+            </span>
           </h2>
 
-          <p class="text-gray-500 text-lg md:text-xl font-medium">
-            Unless you are a scammer or own a bot farm.
+          <p class="text-xl text-gray-600 font-medium leading-relaxed mb-12 max-w-md">
+            We don't just build software; we craft digital legacies. Here are some of our favorite babies that make money.
           </p>
 
+          <button class="group flex items-center gap-4 text-lg font-bold text-gray-900 hover:text-orange-600 transition-colors">
+            <span class="w-14 h-14 rounded-full border-2 border-gray-900 group-hover:border-orange-600 flex items-center justify-center transition-all duration-300 group-hover:bg-orange-600 group-hover:text-white group-hover:scale-110">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+              </svg>
+            </span>
+            View All Projects
+          </button>
         </div>
 
-        <div class="lg:col-span-7 flex flex-col gap-6">
+        <div class="lg:hidden col-span-1 mb-8">
+          <h2 class="text-5xl font-black text-gray-900 leading-[0.9]">
+            Stuff We Shipped.
+          </h2>
+        </div>
+
+
+        <div class="lg:col-span-7 flex flex-col gap-16 md:gap-24 w-full">
           
           <div 
-            v-for="(item, index) in features" 
+            v-for="(project, index) in projects" 
             :key="index"
-            class="rounded-[2.5rem] p-8 md:p-10 flex flex-col-reverse md:flex-row items-center justify-between gap-6 transition-transform hover:-translate-y-1 duration-300"
-            :class="item.bgClass"
+            class="project-card group relative bg-white rounded-[3rem] p-4 md:p-5 border border-orange-100 shadow-xl shadow-orange-900/5 hover:shadow-orange-500/20 transition-all duration-500"
           >
-            
-            <div class="w-full md:w-3/5">
-              <span 
-                class="inline-block px-3 py-1 rounded-md text-xs font-bold mb-4 bg-white"
-                :class="item.textClass"
-              >
-                {{ item.badge }}
-              </span>
+            <div class="relative h-[320px] md:h-[450px] w-full rounded-[2.5rem] overflow-hidden mb-8 bg-gray-100">
+              <div class="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors z-10 duration-500 pointer-events-none"></div>
+              
+              <img 
+                :src="project.image" 
+                :alt="project.title"
+                class="project-image w-full h-[120%] object-cover object-center transform will-change-transform"
+              />
 
-              <h3 
-                class="text-2xl md:text-3xl font-bold leading-snug"
-                :class="item.textClass"
-              >
-                {{ item.title }}
-              </h3>
+              <div class="absolute top-6 left-6 z-20">
+                <span class="px-5 py-2 bg-white/90 backdrop-blur-md rounded-full text-xs font-bold text-gray-900 uppercase tracking-wide border border-white/50 shadow-sm">
+                  {{ project.category }}
+                </span>
+              </div>
             </div>
 
-            <div class="w-full md:w-2/5 flex justify-center md:justify-end">
-              <img 
-                :src="item.image" 
-                :alt="item.title"
-                class="w-32 h-32 md:w-40 md:h-40 object-cover rounded-2xl shadow-sm rotate-3 hover:rotate-0 transition-all duration-500"
-              />
+            <div class="px-4 pb-4 md:px-6 md:pb-6 flex flex-col md:flex-row justify-between items-end gap-6">
+              <div>
+                <h3 class="text-3xl md:text-4xl font-black text-gray-900 mb-2 group-hover:text-orange-600 transition-colors">
+                  {{ project.title }}
+                </h3>
+                <p class="text-gray-500 font-medium max-w-xs leading-snug">
+                  {{ project.desc }}
+                </p>
+              </div>
+
+              <button class="w-full md:w-auto px-8 py-4 bg-black text-white rounded-full font-bold text-sm hover:bg-orange-600 hover:scale-105 transition-all duration-300 shadow-lg">
+                See Case Study
+              </button>
             </div>
 
           </div>
@@ -65,32 +87,63 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-const features = ref([
+gsap.registerPlugin(ScrollTrigger)
+
+const projects = [
   {
-    badge: "zPass is an Eigen AVS",
-    title: "Protected by the crypto-economic security of Eigen Layer",
-    bgClass: "bg-purple-50",       // Ungu Muda
-    textClass: "text-purple-600",   // Teks Ungu
-    // Ganti dengan gambar portal/gerbang kamu
-    image: "https://cdn.dribbble.com/users/124059/screenshots/15454655/media/76508953151855909249e08355677864.png?resize=400x300&vertical=center" 
+    title: "Kopi Skena App",
+    category: "Mobile App • F&B",
+    desc: "Loyalty app dengan 50k+ user aktif. Desain UI yang bikin betah ngopi.",
+    image: "https://cdn.dribbble.com/userupload/12975877/file/original-13271708842605822f30501659892c57.png?resize=1200x900"
   },
   {
-    badge: "Access boosted rewards",
-    title: "Good reputation pays — unlock boosted rewards and exclusive airdrops",
-    bgClass: "bg-blue-50",         // Biru Muda
-    textClass: "text-blue-500",     // Teks Biru
-    // Ganti dengan gambar pintu bercahaya
-    image: "https://cdn.dribbble.com/users/1068771/screenshots/14498369/media/c84273577317789f21f154562c4a45a1.png?resize=400x300&vertical=center"
+    title: "Nebula Exchange",
+    category: "Web3 • Dashboard",
+    desc: "Redesign dashboard crypto jadi lebih friendly dan gak bikin pusing.",
+    image: "https://cdn.dribbble.com/userupload/10636437/file/original-b1836798b03061614995034606138676.png?resize=1200x900"
   },
   {
-    badge: "A behavior-centric AI neural network",
-    title: "AI analysis ensures real users get verified, not bots",
-    bgClass: "bg-teal-50",         // Hijau/Tosca Muda
-    textClass: "text-teal-600",     // Teks Hijau
-    // Ganti dengan gambar otak/AI
-    image: "https://cdn.dribbble.com/users/2514124/screenshots/15579930/media/8939622d645145f6396f4c718b958e4e.png?resize=400x300&vertical=center"
+    title: "Gretiva Merch",
+    category: "E-Commerce • Branding",
+    desc: "Platform toko online streetwear dengan performa loading < 1 detik.",
+    image: "https://cdn.dribbble.com/userupload/4229649/file/original-e9895c249a044701e749a56e0d37d25e.png?resize=1200x900"
+  },
+  {
+    title: "Gretiva Academy",
+    category: "EdTech • Platform",
+    desc: "Platform belajar online untuk talenta digital masa depan.",
+    image: "https://cdn.dribbble.com/users/4859/screenshots/14609590/media/1324734892c908580c85c4dd69c8f2bd.png?resize=800x600&vertical=center"
   }
-])
+]
+
+let ctx;
+
+onMounted(() => {
+  ctx = gsap.context(() => {
+    
+    // 1. Image Parallax (Gambar gerak lambat di dalam kartu)
+    const images = gsap.utils.toArray(".project-image")
+    images.forEach((img) => {
+      gsap.to(img, {
+        y: "-20%", 
+        ease: "none",
+        scrollTrigger: {
+          trigger: img.parentElement,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true, 
+        }
+      })
+    })
+
+  })
+})
+
+onUnmounted(() => {
+  ctx.revert()
+})
 </script>
