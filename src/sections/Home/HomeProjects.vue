@@ -36,6 +36,18 @@
           <h2 class="text-5xl font-black text-gray-900 leading-[0.9]">
             Stuff We Shipped.
           </h2>
+           <p class="text-xl text-gray-600 font-medium leading-relaxed mb-12 max-w-md mt-4">
+            We don't just build software; we craft digital legacies. Here are some of our favorite babies that make money.
+          </p>
+
+          <button class="group flex items-center gap-4 text-lg font-bold text-gray-900 hover:text-orange-600 transition-colors">
+            <span class="w-14 h-14 rounded-full border-2 border-gray-900 group-hover:border-orange-600 flex items-center justify-center transition-all duration-300 group-hover:bg-orange-600 group-hover:text-white group-hover:scale-110">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+              </svg>
+            </span>
+            View All Projects
+          </button>
         </div>
 
 
