@@ -12,7 +12,7 @@
 
     <div class="absolute inset-0 z-10 pointer-events-none overflow-hidden">
       <div 
-        v-for="n in 20" 
+        v-for="n in 40" 
         :key="n"
         class="firefly absolute rounded-full bg-orange-300 mix-blend-screen"
         :style="getFireflyStyle(n)"
@@ -30,7 +30,7 @@
           <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
           <span class="relative inline-flex rounded-full h-3 w-3 bg-orange-500"></span>
         </span>
-        <span class="font-bold text-orange-100 text-sm tracking-wider uppercase font-mono">YOUR DIGITAL GROWTH PARTNER</span>
+        <span class="font-bold text-orange-100 text-sm tracking-wider uppercase font-mono">GRETIVA ARTHA GROUP</span>
       </div>
 
       <h1 class="text-6xl md:text-8xl font-black text-white tracking-tight leading-none mb-8 drop-shadow-2xl">
