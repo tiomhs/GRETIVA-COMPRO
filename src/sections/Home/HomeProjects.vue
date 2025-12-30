@@ -1,5 +1,5 @@
 <template>
-  <section class="relative py-32 bg-[#FFF8F3]">
+  <section class="relative py-32 bg-[#FFF8F3]" id="projects">
     
     <div class="container mx-auto px-6">
       

@@ -1,5 +1,5 @@
 <template>
-  <section ref="serviceSection" class="relative bg-white overflow-hidden">
+  <section ref="serviceSection" class="relative bg-white overflow-hidden" id="services">
     
     <div class="h-screen flex flex-col justify-center relative">
       
