@@ -1,5 +1,5 @@
 <script setup>
-  import AppLayout from './layouts/Navbar.vue'
+  // import AppLayout from './layouts/Navbar.vue'
   import Home from './pages/Home.vue'
   import heroImg from './assets/images/hero.jpg'
 </script>
