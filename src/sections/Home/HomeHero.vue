@@ -73,7 +73,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 // Pastikan path gambar benar
-import portalImage from '@/assets/images/image_4.jpg' 
+import portalImage from '@/assets/images/image_4.webp' 
 
 gsap.registerPlugin(ScrollTrigger)
 
