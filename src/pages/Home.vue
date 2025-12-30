@@ -10,11 +10,11 @@
 </template>
 
 <script setup>
-  import HomeHero from '../sections/HomeHero.vue' 
-  import HomeServices from '../sections/HomeServices.vue'
-  import HomeBreaker from '../sections/HomeBreaker.vue'
-  import HomeProjects from '../sections/HomeProjects.vue'
-  import HomeBreak from '@/sections/HomeBreak.vue';
+  import HomeHero from '../sections/Home/HomeHero.vue' 
+  import HomeServices from '../sections/Home/HomeServices.vue'
+  import HomeBreaker from '../sections/Home/HomeBreaker.vue'
+  import HomeProjects from '../sections/Home/HomeProjects.vue'
+  import HomeBreak from '@/sections/Home/HomeBreak.vue';
   import Footer from '@/components/common/footer.vue';
   import Navbar from '@/components/common/navbar.vue';
 
