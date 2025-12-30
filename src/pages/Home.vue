@@ -1,11 +1,9 @@
 <template>
-    <Navbar />
     <HomeHero />
     <HomeServices />
     <HomeBreaker />
     <HomeProjects />
     <HomeBreak />
-    <Footer />
   
 </template>
 
@@ -15,7 +13,5 @@
   import HomeBreaker from '../sections/Home/HomeBreaker.vue'
   import HomeProjects from '../sections/Home/HomeProjects.vue'
   import HomeBreak from '@/sections/Home/HomeBreak.vue';
-  import Footer from '@/components/common/footer.vue';
-  import Navbar from '@/components/common/navbar.vue';
 
 </script>
