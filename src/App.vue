@@ -1,10 +1,10 @@
-<script setup>
-  import Home from './pages/Home.vue'
-  import heroImg from './assets/images/hero.jpg'
-</script>
-
 <template>
-  <div :style="{ backgroundImage: `url(${heroImg})`, backgroundSize: 'cover', backgroundPosition: 'center', minHeight: '100vh' }">
-    <Home />
-  </div>
+  <Navbar />
+    <router-view />
+  <Footer />
 </template>
+
+<script setup>
+import Navbar from './components/common/navbar.vue'
+import Footer from './components/common/footer.vue'
+</script>
