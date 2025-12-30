@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../pages/Home.vue'
 import About from '../pages/About.vue' // Import page About yang baru kamu buat
 import Project from '../pages/Project.vue' // Import page project yang baru kamu buat
+import Contact from '../pages/Contact.vue' // Import page contact yang baru kamu buat
 
 const routes = [
   {
@@ -19,6 +20,11 @@ const routes = [
     path: '/project',
     name: 'Project',
     component: Project
+  },
+  {
+    path: '/contact',
+    name: 'Contact',
+    component: Contact
   }
 ]
 

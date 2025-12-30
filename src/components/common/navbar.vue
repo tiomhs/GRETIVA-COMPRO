@@ -108,6 +108,7 @@ const menuItems = [
   { name: 'Home', href: '/', type: 'route' },
   { name: 'About Us', href: '/about', type: 'route' },
   { name: 'Project', href: '/project', type: 'route' },
+  { name: 'Contact', href: '/contact', type: 'route' },
 ]
 
 // === LOGIC NAVIGASI UTAMA ===
