@@ -1,121 +1,183 @@
 <template>
-  <section class="py-20 bg-white overflow-hidden">
-    <div class="container mx-auto px-4">
+  <section ref="serviceSection" class="relative bg-white overflow-hidden">
+    
+    <div class="h-screen flex flex-col justify-center relative">
       
-      <div class="text-center max-w-3xl mx-auto mb-16">
-        <span class="inline-block px-4 py-1.5 rounded-full bg-purple-50 text-purple-600 text-xs font-bold tracking-wide mb-4">
-          Trust Proof
-        </span>
-        
-        <h2 class="text-4xl md:text-5xl font-bold leading-tight mb-4">
-          <span class="text-purple-600">Bots & Scammers</span> <br />
-          <span class="text-gray-900">are Always Ahead of You</span>
+      <div class="absolute top-20 right-20 w-80 h-80 bg-orange-200/40 rounded-full blur-[100px] animate-pulse"></div>
+      <div class="absolute bottom-20 left-20 w-80 h-80 bg-gray-200/50 rounded-full blur-[100px]" style="animation-delay: 1s;"></div>
+
+      <div class="container mx-auto px-6 mb-12 text-center relative z-10">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-50 border border-orange-100 text-orange-600 text-xs font-bold tracking-widest uppercase mb-4">
+          ● What We Do
+        </div>
+        <h2 class="text-5xl md:text-6xl font-black text-gray-900">
+          Our <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-orange-400">Playground</span>
         </h2>
-        
-        <p class="text-gray-500 text-lg">
-          That's why it needs to be easy to prove that you can be trusted
-        </p>
       </div>
 
-    </div>
-
-    <div class="flex overflow-x-auto gap-6 px-4 md:px-8 pb-10 snap-x snap-mandatory scroll-smooth hide-scrollbar items-stretch">
-      
-      <div class="w-2 md:w-12 flex-shrink-0"></div>
-
-      <div 
-        v-for="(card, index) in cards" 
-        :key="index"
-        class="relative flex-shrink-0 w-[300px] md:w-[380px] rounded-[2rem] p-8 flex flex-col justify-between transition-transform duration-300 hover:-translate-y-2 snap-center"
-        :class="card.bgClass"
-      >
-        <div>
+      <div class="w-full overflow-hidden flex items-center py-10 pl-[50vw] md:pl-[calc(50vw-225px)]">
+        
+        <div ref="cardsTrack" class="flex gap-8 md:gap-12 px-8 w-max">
+          
           <div 
-            class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold mb-6 bg-white"
-            :class="card.textClass"
+            v-for="(service, index) in services" 
+            :key="index"
+            class="group relative w-[350px] md:w-[450px] h-[500px] md:h-[550px] rounded-[3rem] p-8 md:p-10 flex flex-col justify-between transition-transform duration-300 hover:scale-[1.02] border-2"
+            :class="[service.bgClass, service.borderClass]"
           >
-            0{{ index + 1 }}
+            <div class="relative z-10">
+              <div 
+                class="w-14 h-14 rounded-full flex items-center justify-center font-bold text-xl mb-8 shadow-sm transition-colors"
+                :class="service.numberClass"
+              >
+                0{{ index + 1 }}
+              </div>
+
+              <h3 
+                class="text-3xl md:text-4xl font-black mb-4 leading-tight"
+                :class="service.textTitleClass"
+              >
+                {{ service.title }}
+              </h3>
+
+              <p 
+                class="text-lg font-medium leading-relaxed"
+                :class="service.textDescClass"
+              >
+                {{ service.description }}
+              </p>
+            </div>
+
+            <div class="relative z-10 flex justify-end mt-4">
+              <img 
+                :src="service.image" 
+                :alt="service.title" 
+                class="w-48 h-48 object-contain transform group-hover:rotate-6 transition-transform duration-500 animate-float custom-shadow"
+              />
+            </div>
+
           </div>
 
-          <h3 
-            class="text-2xl font-bold mb-4 leading-snug"
-            :class="card.textClass"
-          >
-            {{ card.title }}
-          </h3>
+          <div class="w-[50vw] flex-shrink-0"></div>
 
-          <p 
-            class="text-sm md:text-base leading-relaxed"
-            :class="card.descClass"
-          >
-            {{ card.description }}
-          </p>
         </div>
-
-        <div class="mt-8 flex justify-center">
-          <img 
-            :src="card.image" 
-            :alt="card.title" 
-            class="h-40 w-auto object-contain drop-shadow-md transform transition group-hover:scale-105"
-          />
-        </div>
-
       </div>
 
-      <div class="w-2 md:w-12 flex-shrink-0"></div>
+      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 text-gray-400 font-bold text-sm tracking-widest">
+        <span class="animate-bounce">←</span> SCROLL DOWN <span class="animate-bounce">→</span>
+      </div>
 
     </div>
   </section>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import imglike from '@/assets/images/img-like.png'
+import imgdesign from '@/assets/images/img-designtool.png'
+import imgLaptop from '@/assets/images/img-laptop.png'
+import imgKamera from '@/assets/images/img-kamera.png'
 
-// Gunakan gambar placeholder atau import gambar asetmu sendiri
-// Tips: Untuk hasil persis, gunakan gambar transparan (PNG)
-const cards = ref([
+gsap.registerPlugin(ScrollTrigger)
+
+const serviceSection = ref(null)
+const cardsTrack = ref(null)
+
+// DATA SERVICES (Color Palette: Orange, Black, White, Grey)
+const services = [
   {
-    title: "But Bot Farms Take 90% of the Pool",
-    description: "You farm an airdrop for 5 months straight, but bots take everything.",
-    bgClass: "bg-purple-50",     // Background Ungu Muda
-    textClass: "text-purple-600", // Teks Ungu
-    descClass: "text-purple-400",
-    image: "https://cdn3d.iconscout.com/3d/premium/thumb/robot-assistant-5430379-4536647.png" 
+    title: "Web & Apps Development",
+    description: "Bikin website anti-lemot dan aplikasi mobile yang smooth parah. Tech stack modern only.",
+    image: imgLaptop,
+    // Style: Orange Base (Primary)
+    bgClass: "bg-orange-50",
+    borderClass: "border-orange-200",
+    numberClass: "bg-white text-orange-600",
+    textTitleClass: "text-gray-900",
+    textDescClass: "text-gray-600"
   },
   {
-    title: "But the Founder is a Serial Rug-Puller",
-    description: "You invest in a token that is promised to make 1000x, but lose it all.",
-    bgClass: "bg-pink-50",       // Background Pink Muda
-    textClass: "text-pink-600",   // Teks Pink
-    descClass: "text-pink-400",
-    image: "https://cdn3d.iconscout.com/3d/premium/thumb/hacker-5430386-4536654.png"
+    title: "Social Media Management",
+    description: "Konten viral, caption nendang, dan strategi yang bikin algoritma tunduk sama brand kamu.",
+    image: imglike,
+    // Style: Dark Mode (High Contrast & Premium)
+    bgClass: "bg-[#111]", 
+    borderClass: "border-gray-800",
+    numberClass: "bg-orange-500 text-white", // Aksen Orange menyala di gelap
+    textTitleClass: "text-white",
+    textDescClass: "text-gray-400"
   },
   {
-    title: "But You Get No Benefits for This",
-    description: "You use a DEX for 8 months EVERY single day and still pay the 1% fee.",
-    bgClass: "bg-blue-50",       // Background Biru Muda
-    textClass: "text-blue-600",   // Teks Biru
-    descClass: "text-blue-400",
-    image: "https://cdn3d.iconscout.com/3d/premium/thumb/sad-girl-5430397-4536665.png"
+    title: "Creative Studio & Visuals",
+    description: "Foto produk aesthetic & Video cinematic. Bikin audiens kamu betah scrolling.",
+    image: imgKamera,
+    // Style: White Clean (Minimalist)
+    bgClass: "bg-white",
+    borderClass: "border-gray-200 shadow-xl", // Shadow biar gak flat
+    numberClass: "bg-orange-100 text-orange-600",
+    textTitleClass: "text-gray-900",
+    textDescClass: "text-gray-600"
   },
   {
-    title: "Even Though You've Never Defaulted",
-    description: "You're depositing 150% collateral but still treated like a stranger.",
-    bgClass: "bg-teal-50",       // Background Hijau/Teal Muda
-    textClass: "text-teal-600",   // Teks Hijau/Teal
-    descClass: "text-teal-700",
-    image: "https://cdn3d.iconscout.com/3d/premium/thumb/confused-man-5430404-4536672.png"
+    title: "Branding & Graphic Design",
+    description: "Logo, Identitas Visual, dan UI/UX Design yang fresh. No more desain kaku.",
+    image: imgdesign,
+    // Style: Orange Gradient/Solid (Bold)
+    bgClass: "bg-gradient-to-br from-orange-500 to-orange-600",
+    borderClass: "border-orange-400",
+    numberClass: "bg-black text-white",
+    textTitleClass: "text-white",
+    textDescClass: "text-orange-100"
   }
-])
+]
+
+let ctx;
+
+onMounted(() => {
+  ctx = gsap.context(() => {
+    const totalScroll = cardsTrack.value.scrollWidth - window.innerWidth;
+
+    gsap.to(cardsTrack.value, {
+      x: () => -totalScroll, 
+      ease: "none", 
+      scrollTrigger: {
+        trigger: serviceSection.value,
+        pin: true,
+        scrub: 1, 
+        end: "+=3000", 
+        anticipatePin: 1
+      }
+    })
+  }, serviceSection.value)
+})
+
+onUnmounted(() => {
+  ctx.revert()
+})
 </script>
 
 <style scoped>
-/* Utility class untuk menyembunyikan scrollbar tapi tetap bisa discroll */
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
 }
-.hide-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+
+/* 1. FORCE SHADOW PADA GAMBAR */
+/* Ini akan membuat gambar PNG yang flat jadi punya bayangan 3D */
+.custom-shadow {
+  filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.15));
+}
+
+/* 2. ANIMASI FLOATING */
+/* Biar gambarnya gerak-gerak halus (tidak kaku) */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+  100% { transform: translateY(0px); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
 }
 </style>
