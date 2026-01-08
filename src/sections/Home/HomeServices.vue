@@ -6,7 +6,7 @@
       <div class="absolute top-20 right-20 w-40 md:w-80 h-40 md:h-80 bg-orange-200/40 rounded-full blur-[60px] md:blur-[100px] animate-pulse"></div>
       <div class="absolute bottom-20 left-20 w-40 md:w-80 h-40 md:h-80 bg-gray-200/50 rounded-full blur-[60px] md:blur-[100px]" style="animation-delay: 1s;"></div>
 
-      <div class="container mx-auto px-6 mb-12 text-center relative z-10">
+      <div class="container mx-auto px-6 my-12 md:mb-0 md:mb-6 text-center relative z-10">
         <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-50 border border-orange-100 text-orange-600 text-xs font-bold tracking-widest uppercase mb-4">
           ● What We Do
         </div>
@@ -15,7 +15,7 @@
         </h2>
       </div>
 
-      <div class="w-full md:overflow-hidden md:flex md:items-center md:py-10 md:pl-[calc(50vw-225px)]">
+      <div class="w-full md:flex md:items-center md:py-10 md:mb-4 md:pl-[calc(50vw-225px)]">
         
         <div 
           ref="cardsTrack" 
@@ -25,26 +25,26 @@
           <div 
             v-for="(service, index) in services" 
             :key="index"
-            class="group relative w-full max-w-[350px] md:w-[450px] min-h-[450px] md:h-[550px] rounded-[2.5rem] md:rounded-[3rem] p-8 md:p-10 flex flex-col justify-between transition-transform duration-300 hover:scale-[1.02] border-2 shrink-0"
+            class="group relative w-full max-w-[350px] md:w-[450px] min-h-[450px] rounded-[2.5rem] md:rounded-[3rem] p-8 md:p-10 flex flex-col justify-between transition-transform duration-300 hover:scale-[1.02] border-2 shrink-0"
             :class="[service.bgClass, service.borderClass]"
           >
             <div class="relative z-10">
               <div 
-                class="w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center font-bold text-lg md:text-xl mb-6 md:mb-8 shadow-sm transition-colors"
+                class="w-12 h-12 md:w-14 md:h-6 rounded-full flex items-center justify-center font-bold text-lg mb-6 shadow-sm transition-colors"
                 :class="service.numberClass"
               >
                 0{{ index + 1 }}
               </div>
 
               <h3 
-                class="text-2xl md:text-4xl font-black mb-3 md:mb-4 leading-tight"
+                class="text-2xl font-black mb-3 leading-tight"
                 :class="service.textTitleClass"
               >
                 {{ service.title }}
               </h3>
 
               <p 
-                class="text-base md:text-lg font-medium leading-relaxed"
+                class="text-base font-medium leading-relaxed"
                 :class="service.textDescClass"
               >
                 {{ service.description }}
@@ -55,7 +55,7 @@
               <img 
                 :src="service.image" 
                 :alt="service.title" 
-                class="w-32 h-32 md:w-48 md:h-48 object-contain transform group-hover:rotate-6 transition-transform duration-500 animate-float custom-shadow"
+                class="w-32 h-32 object-contain transform group-hover:rotate-6 transition-transform duration-500 animate-float custom-shadow"
               />
             </div>
 

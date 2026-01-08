@@ -27,7 +27,7 @@ const services = [
     textDescClass: "text-gray-400"
   },
   {
-    title: "Creative Studio & Visuals",
+    title: "Creative Studio & Visual",
     description: "Foto produk aesthetic & Video cinematic. Bikin audiens kamu betah scrolling.",
     image: imgKamera,
     // Style: White Clean (Minimalist)
