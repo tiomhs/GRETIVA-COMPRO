@@ -1,5 +1,5 @@
 <template>
-  <main class="bg-white pt-24 md:pt-32 overflow-hidden">
+  <main class="bg-white pt-20 overflow-hidden">
     <AboutHero />
     <AboutCapable />
     <AboutPhilosophy />
