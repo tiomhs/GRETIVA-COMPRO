@@ -4,10 +4,9 @@
     <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-orange-600/20 rounded-full blur-[150px] pointer-events-none"></div>
     <div class="absolute bottom-0 right-0 w-[400px] h-[400px] bg-purple-600/20 rounded-full blur-[150px] pointer-events-none"></div>
 
-    <div class="absolute left-[10%] top-[20%] text-6xl animate-float-slow opacity-80">🚀</div>
-    <div class="absolute right-[15%] bottom-[30%] text-6xl animate-float-delayed opacity-80">🔥</div>
+    <div class="absolute left-[10%] top-[20%] text-6xl animate-float-slow opacity-80" aria-hidden="true">🚀</div>
+    <div class="absolute right-[15%] bottom-[30%] text-6xl animate-float-delayed opacity-80" aria-hidden="true">🔥</div>
     <div class="absolute right-[5%] top-[10%] w-20 h-20 bg-gradient-to-br from-orange-400 to-pink-500 rounded-full blur-sm animate-pulse-slow opacity-50"></div>
-
 
     <div class="container mx-auto px-6 relative z-10 text-center">
       
@@ -22,25 +21,29 @@
           </span>
         </h2>
         <p class="text-xl text-gray-400 max-w-xl mx-auto">
-          Got a crazy idea? A boring project that needs spice? Drop us a line. We don't do mediocre.
+          Punya ide gila? Atau proyek yang butuh sentuhan magis? Isi form di bawah, kita langsung ngobrol santai di WhatsApp.
         </p>
       </div>
 
       <div class="max-w-3xl mx-auto bg-white/5 backdrop-blur-xl border border-white/10 p-4 md:p-6 rounded-[3rem] shadow-[0_0_50px_rgba(249,115,22,0.1)] transition-all duration-500 hover:border-orange-500/50 hover:shadow-[0_0_80px_rgba(249,115,22,0.2)] group">
         
-        <form class="flex flex-col gap-4">
+        <form @submit.prevent="sendToWhatsApp" class="flex flex-col gap-4">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div class="relative">
               <input 
+                v-model="form.name"
                 type="text" 
                 placeholder="Your Name" 
+                required
                 class="w-full bg-black/20 border border-white/10 rounded-full px-8 py-5 text-lg font-medium focus:outline-none focus:border-orange-400 focus:bg-black/40 transition-all placeholder:text-gray-500"
               />
             </div>
             <div class="relative">
               <input 
+                v-model="form.email"
                 type="email" 
-                placeholder="Your Email Addres" 
+                placeholder="Your Email Address" 
+                required
                 class="w-full bg-black/20 border border-white/10 rounded-full px-8 py-5 text-lg font-medium focus:outline-none focus:border-orange-400 focus:bg-black/40 transition-all placeholder:text-gray-500"
               />
             </div>
@@ -48,16 +51,18 @@
 
           <div class="relative">
             <textarea 
+              v-model="form.message"
               rows="4"
               placeholder="Tell us about your project idea (don't be shy!)" 
+              required
               class="w-full bg-black/20 border border-white/10 rounded-[2rem] px-8 py-5 text-lg font-medium focus:outline-none focus:border-orange-400 focus:bg-black/40 transition-all resize-none placeholder:text-gray-500"
             ></textarea>
           </div>
 
-          <button class="relative group/btn overflow-hidden w-full bg-orange-500 text-white rounded-full py-6 text-2xl font-black tracking-wide shadow-xl hover:scale-[1.02] transition-all duration-300 hover:shadow-orange-500/40">
+          <button type="submit" class="relative group/btn overflow-hidden w-full bg-orange-500 text-white rounded-full py-6 text-2xl font-black tracking-wide shadow-xl hover:scale-[1.02] transition-all duration-300 hover:shadow-orange-500/40">
             <span class="absolute inset-0 w-full h-full bg-gradient-to-r from-orange-400 to-yellow-400 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-500"></span>
             <span class="relative flex items-center justify-center gap-3 z-10">
-              LAUNCH PROJECT 🚀
+              LAUNCH TO WHATSAPP 🚀
             </span>
           </button>
         </form>
@@ -73,7 +78,7 @@
           <a href="#" class="hover:text-orange-400 transition-colors flex items-center gap-2">
             <span class="text-xl">💼</span> LinkedIn
           </a>
-          <a href="#" class="hover:text-orange-400 transition-colors flex items-center gap-2">
+          <a href="mailto:hello@gretiva.com" class="hover:text-orange-400 transition-colors flex items-center gap-2">
             <span class="text-xl">📧</span> hello@gretiva.com
           </a>
         </div>
@@ -82,6 +87,34 @@
     </div>
   </section>
 </template>
+
+<script setup>
+import { ref } from 'vue'
+
+// 1. STATE FORM
+const form = ref({
+  name: '',
+  email: '',
+  message: ''
+})
+
+// 2. NOMOR WHATSAPP TUJUAN (GANTI DENGAN NOMOR KAMU)
+// Format: Kode Negara + Nomor (Tanpa + atau 0 di depan)
+// Contoh: 6281234567890
+const whatsappNumber = "6285829161701" 
+
+// 3. FUNCTION KIRIM KE WA
+const sendToWhatsApp = () => {
+  // Format Pesan agar rapi saat dibuka di WA
+  const text = `Halo Team Gretiva! 👋%0A%0ASaya tertarik untuk diskusi project.%0A%0A👤 Nama: ${form.value.name}%0A📧 Email: ${form.value.email}%0A📝 Pesan: ${form.value.message}%0A%0AMohon info selanjutnya. Terima kasih!`
+
+  // Buat Link WhatsApp API
+  const url = `https://wa.me/${whatsappNumber}?text=${text}`
+
+  // Buka di tab baru
+  window.open(url, '_blank')
+}
+</script>
 
 <style scoped>
 /* ANIMASI FLOATING EMOJI */
