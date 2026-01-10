@@ -12,20 +12,12 @@
       :class="{ 'py-2 md:py-3': isScrolled }" 
     >
       
-      <a 
-        href="/" 
-        @click.prevent="handleNavigation({ href: '/', type: 'route' })" 
-        class="flex items-center gap-1 group cursor-pointer"
-      >
+      <a href="/" class="flex items-center">
         <img 
-          :src="logo" 
-          alt="Logo" 
-          class="h-10 md:h-12 object-contain transition-transform duration-300 group-hover:scale-105"
+          src="/logo.png" 
+          alt="Gretiva Logo" 
+          class="h-10 w-auto object-contain" 
         />
-        <span 
-          class="text-white font-bold text-lg md:text-xl select-none transition-colors duration-300 group-hover:text-orange-500"
-        >
-        </span>
       </a>
 
       <div class="hidden md:flex items-center gap-1 bg-white/5 rounded-full px-2 py-1 border border-white/5">

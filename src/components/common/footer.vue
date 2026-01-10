@@ -7,9 +7,9 @@
         
         <div class="max-w-sm">
           <img 
-            :src="logo" 
+            src="/logo.png" 
             alt="Gretiva Logo" 
-            class="h-12 mb-6 object-contain"
+            class="h-14 mb-6 object-contain"
           />
           <p class="text-gray-400 text-lg">
             Crafting digital magic for brands that refuse to be boring. Based in the Cloud, accessible worldwide.
