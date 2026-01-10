@@ -25,9 +25,9 @@
     <div ref="orangeOverlay" class="absolute inset-0 z-20 bg-orange-500 mix-blend-overlay opacity-0 pointer-events-none"></div>
     <div ref="whiteFlash" class="absolute inset-0 z-20 bg-orange-50 mix-blend-normal opacity-0 pointer-events-none"></div>
 
-    <div ref="heroContent" class="relative z-30 text-center px-4 md:px-6 w-full max-w-[90%] md:max-w-3xl lg:max-w-5xl mt-[-5vh] md:mt-[-10vh]">
+    <div ref="heroContent" class="relative z-30 text-center px-4 md:px-6 w-full max-w-[90%] md:max-w-3xl lg:max-w-5xl mt-[-10vh]">
       
-      <div class="inline-flex items-center gap-2 md:gap-3 px-4 py-2 md:px-6 md:py-3 rounded-full bg-black/40 backdrop-blur-xl border border-orange-500/50 shadow-[0_0_30px_rgba(249,115,22,0.3)] mb-6 md:mb-8 hover:scale-105 transition-transform">
+      <div class="inline-flex items-center gap-2 md:gap-3 px-4 py-2 md:px-6 md:py-3 rounded-full bg-black/40 backdrop-blur-xl border border-orange-500/50 shadow-[0_0_30px_rgba(249,115,22,0.3)] mb-6 hover:scale-105 transition-transform">
         <span class="relative flex h-2 w-2 md:h-3 md:w-3">
           <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
           <span class="relative inline-flex rounded-full h-2 w-2 md:h-3 md:w-3 bg-orange-500"></span>
