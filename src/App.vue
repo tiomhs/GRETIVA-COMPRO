@@ -7,48 +7,53 @@
 </template>
 
 <script setup>
+import { onMounted, watch } from 'vue' // Tambahkan 'watch'
+import { useRoute } from 'vue-router'  // Tambahkan 'useRoute'
 import Navbar from './components/common/Navbar.vue'
 import Footer from './components/common/Footer.vue' 
-import { onMounted, onUnmounted } from 'vue'
 import Lenis from 'lenis'
 import 'lenis/dist/lenis.css' 
 
+// 1. Inisialisasi Route
+const route = useRoute()
+
+// 2. Deklarasi variabel lenis di luar agar bisa diakses global di file ini
+let lenis; 
+
 onMounted(() => {
-  const lenis = new Lenis({
-    // 1. DURATION: Seberapa lama scroll "meluncur" sampai berhenti.
-    // Angka besar = makin licin/lama berhentinya.
+  // Jangan pakai 'const' di sini, pakai variabel global 'lenis' yang sudah dibuat di atas
+  lenis = new Lenis({
     duration: 2.5, 
-
-    // 2. WHEEL MULTIPLIER (INI KUNCINYA):
-    // Default 1. Ubah ke 0.5 atau lebih kecil agar gerakan jadi "Berat/Lambat".
-    // Artinya: 1x putar roda mouse cuma gerak setengah jarak normal.
     wheelMultiplier: 0.6, 
-
-    // 3. TOUCH MULTIPLIER:
-    // Untuk Trackpad/Touchscreen biar gak terlalu liar
     touchMultiplier: 1.5,
-
-    // Config standar
     easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
     smoothWheel: true,
   })
 
-  // Loop animasi wajib
   function raf(time) {
     lenis.raf(time)
     requestAnimationFrame(raf)
   }
   requestAnimationFrame(raf)
 })
+
+// 3. Watcher: Setiap kali rute berubah (pindah page), paksa scroll ke atas
+watch(route, () => {
+  if (lenis) {
+    // immediate: true = Langsung teleport ke atas (tanpa animasi scroll naik)
+    // Kalau mau animasi scroll naik, hapus { immediate: true }
+    lenis.scrollTo(0, { immediate: true }) 
+  }
+})
 </script>
 
 <style>
 html {
-  /* HAPUS/OVERRIDE scroll-behavior: smooth bawaan jika ada */
+  /* Matikan smooth scroll bawaan browser agar tidak bentrok dengan Lenis */
   scroll-behavior: auto !important; 
 }
 
-/* Rekomendasi Lenis */
+/* CSS Wajib Lenis */
 html.lenis, html.lenis body {
   height: auto;
 }
