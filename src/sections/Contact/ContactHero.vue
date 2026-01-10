@@ -1,5 +1,5 @@
 <template>
-     <section class="container mx-auto px-6 mt-32 md:mt-48 mb-20 md:mb-32 relative">
+     <section class="container mx-auto px-6 mt-32 mb-20 md:mb-32 relative">
          <div class="max-w-4xl mb-20">
             <span class="text-orange-500 font-bold tracking-widest uppercase text-xs border border-orange-500/30 px-3 py-1 rounded-full mb-6 inline-block">
               ● Start a Project

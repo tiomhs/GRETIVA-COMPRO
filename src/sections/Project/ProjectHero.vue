@@ -1,5 +1,5 @@
 <template>
-  <section class="container mx-auto px-6 mt-32 md:mt-48 mb-20 md:mb-32 relative">
+  <section class="container mx-auto px-6 mt-32 mb-20 md:mb-32 relative">
     
     <div class="absolute top-0 right-0 text-[10rem] md:text-[15rem] font-black text-gray-900 opacity-[0.03] select-none pointer-events-none -z-10 leading-none overflow-hidden">
       WORK
