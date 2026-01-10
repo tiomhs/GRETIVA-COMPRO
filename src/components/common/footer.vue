@@ -6,7 +6,11 @@
       <div class="flex flex-col md:flex-row justify-between items-start gap-12 mb-24">
         
         <div class="max-w-sm">
-          <div class="w-28 h-12 bg-orange-500 rounded-xl mb-6 flex items-center justify-center font-bold text-black text-xl">GRETIVA</div>
+          <img 
+            :src="logo" 
+            alt="Gretiva Logo" 
+            class="h-12 mb-6 object-contain"
+          />
           <p class="text-gray-400 text-lg">
             Crafting digital magic for brands that refuse to be boring. Based in the Cloud, accessible worldwide.
           </p>
@@ -57,6 +61,8 @@
 </template>
 
 <script setup>
+import logo from '@/assets/images/logo.png'
+
 const scrollToTop = () => {
   window.scrollTo({
     top: 0,

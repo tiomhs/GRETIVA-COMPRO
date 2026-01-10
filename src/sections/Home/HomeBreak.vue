@@ -78,8 +78,8 @@
           <a href="#" class="hover:text-orange-400 transition-colors flex items-center gap-2">
             <span class="text-xl">💼</span> LinkedIn
           </a>
-          <a href="mailto:hello@gretiva.com" class="hover:text-orange-400 transition-colors flex items-center gap-2">
-            <span class="text-xl">📧</span> hello@gretiva.com
+          <a href="mailto:gretivagroup@gmail.com" class="hover:text-orange-400 transition-colors flex items-center gap-2">
+            <span class="text-xl">📧</span> gretivagroup@gmail.com
           </a>
         </div>
       </div>

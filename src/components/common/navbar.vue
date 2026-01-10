@@ -17,8 +17,15 @@
         @click.prevent="handleNavigation({ href: '/', type: 'route' })" 
         class="flex items-center gap-1 group cursor-pointer"
       >
-        <div class="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center font-bold text-black group-hover:rotate-12 transition-transform">G</div>
-        <span class="font-black text-white text-xl tracking-tighter">GRETIVA<span class="text-orange-500">.</span></span>
+        <img 
+          :src="logo" 
+          alt="Logo" 
+          class="h-10 md:h-12 object-contain transition-transform duration-300 group-hover:scale-105"
+        />
+        <span 
+          class="text-white font-bold text-lg md:text-xl select-none transition-colors duration-300 group-hover:text-orange-500"
+        >
+        </span>
       </a>
 
       <div class="hidden md:flex items-center gap-1 bg-white/5 rounded-full px-2 py-1 border border-white/5">
@@ -94,6 +101,7 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
+import logo from '@/assets/images/logo.png'
 
 const router = useRouter()
 const route = useRoute()
