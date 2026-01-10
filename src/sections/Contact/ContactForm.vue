@@ -7,8 +7,8 @@
         
         <div class="group p-8 rounded-[2rem] bg-white/5 border border-white/10 hover:border-orange-500/50 transition-colors">
           <h3 class="text-gray-500 text-sm font-bold uppercase tracking-widest mb-2">Say Hello</h3>
-          <a href="mailto:gretiva@gmail.com" class="text-2xl font-bold hover:text-orange-500 transition-colors break-words">
-            gretiva@gmail.com
+          <a href="mailto:gretivagroup@gmail.com" class="text-2xl font-bold hover:text-orange-500 transition-colors break-words">
+            gretivagroup@gmail.com
           </a>
         </div>
 
