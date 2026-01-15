@@ -212,9 +212,9 @@ export const groupedServices = [
         description: "Bosen suasana lama? Kita rombak total interior & eksterior biar makin fresh.",
         image: imgRenov,
         // THEME: BOLD ACTION (Orange Tua)
-        bgClass: "bg-orange-700",
-        borderClass: "border-orange-500",
-        numberClass: "bg-white text-orange-800 font-bold",
+        bgClass: "bg-gradient-to-br from-orange-500 to-orange-700",
+        borderClass: "border-orange-400",
+        numberClass: "bg-black text-white",
         textTitleClass: "text-white",
         textDescClass: "text-orange-100"
       }
