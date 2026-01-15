@@ -1,18 +1,15 @@
-import { fileURLToPath, URL } from 'node:url'
-
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import vueDevTools from 'vite-plugin-vue-devtools'
+import path from 'path'
 
-// https://vite.dev/config/
 export default defineConfig({
-  plugins: [
-    vue(),
-    // vueDevTools(),
-  ],
+  plugins: [vue()],
+  // Ganti '/nama-repository-kamu/' sesuai nama repo di GitHub.
+  // Kalau nanti pakai domain sendiri (gretiva.com), ubah jadi '/'
+  base: process.env.NODE_ENV === 'production' ? '/GRETIVA-COMPRO/' : '/', 
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      '@': path.resolve(__dirname, './src'),
     },
   },
 })
