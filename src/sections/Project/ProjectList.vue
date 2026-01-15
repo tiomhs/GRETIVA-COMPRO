@@ -1,18 +1,48 @@
 <template>
   <section class="container mx-auto px-6 pb-32">
     
-    <div class="flex flex-wrap gap-3 mb-12">
-      <button 
-        v-for="cat in categories" 
-        :key="cat"
-        @click="activeCategory = cat"
-        class="px-6 py-3 rounded-full text-sm font-bold border transition-all duration-300 transform hover:scale-105"
-        :class="activeCategory === cat 
-          ? 'bg-black text-white border-black shadow-lg scale-105' 
-          : 'bg-white text-gray-500 border-gray-200 hover:border-orange-500 hover:text-orange-500'"
-      >
-        {{ cat }}
-      </button>
+    <div class="mb-12">
+      <div class="flex flex-wrap items-center gap-4 bg-gray-50 p-4 rounded-[2rem] border border-gray-100 w-fit">
+        
+        <div class="w-10 h-10 rounded-full bg-black text-white flex items-center justify-center shrink-0">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z" />
+          </svg>
+        </div>
+
+        <div class="relative">
+          <select v-model="filters.status" class="appearance-none bg-white border border-gray-200 pl-4 pr-10 py-3 rounded-xl text-sm font-bold focus:outline-none focus:border-orange-500 hover:border-orange-200 cursor-pointer min-w-[140px]">
+            <option value="All">All Status</option>
+            <option v-for="opt in options.status" :key="opt" :value="opt">{{ opt }}</option>
+          </select>
+          <div class="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">▼</div>
+        </div>
+
+        <div class="relative">
+          <select v-model="filters.year" class="appearance-none bg-white border border-gray-200 pl-4 pr-10 py-3 rounded-xl text-sm font-bold focus:outline-none focus:border-orange-500 hover:border-orange-200 cursor-pointer min-w-[120px]">
+            <option value="All">All Year</option>
+            <option v-for="opt in options.year" :key="opt" :value="opt">{{ opt }}</option>
+          </select>
+          <div class="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">▼</div>
+        </div>
+
+        <div class="relative">
+          <select v-model="filters.province" class="appearance-none bg-white border border-gray-200 pl-4 pr-10 py-3 rounded-xl text-sm font-bold focus:outline-none focus:border-orange-500 hover:border-orange-200 cursor-pointer min-w-[150px]">
+            <option value="All">All Province</option>
+            <option v-for="opt in options.province" :key="opt" :value="opt">{{ opt }}</option>
+          </select>
+          <div class="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">▼</div>
+        </div>
+
+        <button 
+          v-if="isFiltering" 
+          @click="resetFilters"
+          class="text-xs font-bold text-red-500 hover:text-red-700 underline px-2"
+        >
+          Reset
+        </button>
+
+      </div>
     </div>
 
     <TransitionGroup 
@@ -26,16 +56,28 @@
         :key="project.id"
         class="group relative bg-white rounded-[2.5rem] p-4 border border-orange-100 shadow-xl shadow-orange-500/5 hover:shadow-orange-500/15 transition-all duration-500 hover:-translate-y-2 flex flex-col h-full"
       >
-        <div class="relative h-[300px] md:h-[400px] w-full rounded-[2rem] overflow-hidden bg-gray-100 mb-6 shrink-0">
+        <div class="relative h-[280px] w-full rounded-[2rem] overflow-hidden bg-gray-100 mb-6 shrink-0">
           
-          <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-center justify-center backdrop-blur-[2px]">
-            <a 
-              :href="project.link" 
-              target="_blank"
-              class="bg-white text-black px-8 py-3 rounded-full font-bold text-sm hover:scale-110 transition-transform flex items-center gap-2"
-            >
-              View Project ↗
+          <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 flex items-center justify-center backdrop-blur-[2px]">
+            <a :href="project.link" target="_blank" class="bg-white text-black px-6 py-3 rounded-full font-bold text-sm hover:scale-105 transition-transform">
+              View Detail ↗
             </a>
+          </div>
+
+          <div class="absolute top-4 left-4 z-10 flex gap-2">
+            <span 
+              class="px-3 py-1.5 backdrop-blur-md rounded-lg text-xs font-bold uppercase tracking-wider border shadow-sm flex items-center gap-1.5"
+              :class="getStatusColor(project.status)"
+            >
+              <span class="w-2 h-2 rounded-full bg-current animate-pulse"></span>
+              {{ project.status }}
+            </span>
+          </div>
+
+           <div class="absolute top-4 right-4 z-10">
+            <span class="px-3 py-1.5 bg-black/60 backdrop-blur-md text-white rounded-lg text-xs font-mono font-bold border border-white/20">
+              {{ project.year }}
+            </span>
           </div>
 
           <img 
@@ -44,26 +86,41 @@
             class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
             loading="lazy"
           />
-
-          <div class="absolute top-4 left-4 z-10">
-            <span class="px-4 py-2 bg-white/90 backdrop-blur rounded-full text-xs font-bold uppercase tracking-wide border border-white shadow-sm">
-              {{ project.category }}
-            </span>
-          </div>
         </div>
 
-        <div class="px-2 md:px-4 pb-4 flex flex-col flex-grow">
-          <div class="flex justify-between items-start mb-3">
-            <h3 class="text-3xl font-black text-gray-900 group-hover:text-orange-600 transition-colors leading-tight">
+        <div class="px-2 md:px-3 pb-2 flex flex-col flex-grow">
+          
+          <div class="flex justify-between items-start mb-2">
+            <h3 class="text-2xl font-black text-gray-900 group-hover:text-orange-600 transition-colors leading-tight">
               {{ project.title }}
             </h3>
-            <span class="w-10 h-10 shrink-0 rounded-full border border-gray-200 flex items-center justify-center text-gray-400 group-hover:bg-orange-500 group-hover:text-white group-hover:border-orange-500 transition-all group-hover:-rotate-45">
-              →
+            <span class="text-orange-500 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all duration-300">
+              ➔
             </span>
           </div>
-          <p class="text-gray-500 font-medium leading-relaxed">
-            {{ project.desc }}
-          </p>
+
+          <div class="flex items-center gap-2 text-gray-500 text-sm font-medium mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 text-orange-500">
+              <path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
+            </svg>
+            {{ project.location }}
+          </div>
+
+          <div class="h-px w-full bg-gray-100 mb-4"></div>
+
+          <div class="mt-auto">
+            <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2 block">Scope of Work</span>
+            <div class="flex flex-wrap gap-2">
+              <span 
+                v-for="(scope, i) in project.scope" 
+                :key="i"
+                class="px-3 py-1 bg-gray-50 border border-gray-200 rounded-md text-xs font-bold text-gray-600 group-hover:border-orange-200 group-hover:bg-orange-50 group-hover:text-orange-700 transition-colors"
+              >
+                {{ scope }}
+              </span>
+            </div>
+          </div>
+
         </div>
       </div>
 
@@ -90,6 +147,11 @@
 
     </TransitionGroup>
 
+    <div v-if="filteredProjects.length === 0" class="text-center py-20">
+      <p class="text-xl font-bold text-gray-400">No projects found with these filters.</p>
+      <button @click="resetFilters" class="mt-4 text-orange-500 font-bold underline">Clear Filters</button>
+    </div>
+
   </section>
 </template>
 
@@ -97,19 +159,56 @@
 import { ref, computed } from 'vue'
 import projects from '@/data/AllProject.js'
 
-const categories = ['All', 'Web Dev', 'Mobile App', 'Branding', 'UI/UX']
-const activeCategory = ref('All')
-
-const filteredProjects = computed(() => {
-  if (activeCategory.value === 'All') {
-    return projects
-  }
-  return projects.filter(project => project.category === activeCategory.value)
+// State untuk menyimpan nilai filter yang dipilih user
+const filters = ref({
+  status: 'All',
+  year: 'All',
+  province: 'All'
 })
+
+// Generate Opsi Dropdown secara otomatis dari Data Project
+// Agar tidak perlu hardcode tahun atau provinsi baru
+const options = computed(() => {
+  return {
+    status: [...new Set(projects.map(p => p.status))].sort(),
+    year: [...new Set(projects.map(p => p.year))].sort().reverse(), // Tahun terbaru di atas
+    province: [...new Set(projects.map(p => p.province))].sort()
+  }
+})
+
+// Logic Filter Utama
+const filteredProjects = computed(() => {
+  return projects.filter(project => {
+    // Cek satu per satu
+    const matchStatus = filters.value.status === 'All' || project.status === filters.value.status;
+    const matchYear = filters.value.year === 'All' || project.year === filters.value.year;
+    const matchProvince = filters.value.province === 'All' || project.province === filters.value.province;
+    
+    // Harus memenuhi SEMUA kondisi (AND logic)
+    return matchStatus && matchYear && matchProvince;
+  })
+})
+
+// Cek apakah user sedang memfilter sesuatu (untuk tombol Reset)
+const isFiltering = computed(() => {
+  return filters.value.status !== 'All' || filters.value.year !== 'All' || filters.value.province !== 'All'
+})
+
+// Reset function
+const resetFilters = () => {
+  filters.value = { status: 'All', year: 'All', province: 'All' }
+}
+
+// Helper untuk warna badge status
+const getStatusColor = (status) => {
+  if(status === 'Completed') return 'bg-green-100 text-green-700 border-green-200'
+  if(status === 'On Going') return 'bg-orange-100 text-orange-700 border-orange-200'
+  return 'bg-gray-100 text-gray-700'
+}
 </script>
 
 <style scoped>
-/* Transisi Halus untuk Grid */
+/* Transisi List */
 .list-move,
 .list-enter-active,
 .list-leave-active {
@@ -119,14 +218,10 @@ const filteredProjects = computed(() => {
 .list-enter-from,
 .list-leave-to {
   opacity: 0;
-  transform: scale(0.9);
+  transform: scale(0.95);
 }
 
-/* KUNCI: Biar element yang hilang (leave) tidak menggeser layout saat animasi */
 .list-leave-active {
-  position: absolute; 
-  /* Tapi di grid responsive kadang 'absolute' bikin layout aneh. 
-     Trik paling aman untuk grid list filter sederhana adalah display:none untuk leave. */
   display: none; 
 }
 </style>
