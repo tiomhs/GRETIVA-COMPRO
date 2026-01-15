@@ -101,7 +101,7 @@ const form = ref({
 // 2. NOMOR WHATSAPP TUJUAN (GANTI DENGAN NOMOR KAMU)
 // Format: Kode Negara + Nomor (Tanpa + atau 0 di depan)
 // Contoh: 6281234567890
-const whatsappNumber = "6285829161701" 
+const whatsappNumber = "6281236573953" 
 
 // 3. FUNCTION KIRIM KE WA
 const sendToWhatsApp = () => {
