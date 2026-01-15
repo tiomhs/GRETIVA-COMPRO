@@ -1,13 +1,23 @@
 <template>
   <section ref="heroSection" class="relative w-full h-screen overflow-hidden bg-black flex items-center justify-center">
     
-    <div ref="portalContainer" class="absolute inset-0 z-0 flex items-center justify-center pointer-events-none will-change-transform">
-      <img 
-        ref="portalImageEl"
-        :src="portalImage" 
-        alt="Magical Golden Gateway" 
-        class="w-full h-full object-cover scale-105 transform-origin-[center_60%]"
-      />
+    <div ref="portalContainer" class="absolute inset-0 z-0 flex items-center justify-center pointer-events-none will-change-transform overflow-hidden">
+      
+      <div class="relative w-[300%] h-[300%] flex items-center justify-center">
+        <iframe 
+          ref="portalVideoEl"
+          class="w-full h-full object-cover opacity-80"
+          src="https://www.youtube.com/embed/AbrK-9aKXNw?autoplay=1&mute=1&controls=0&loop=1&playlist=AbrK-9aKXNw&showinfo=0&rel=0&playsinline=1&enablejsapi=1&iv_load_policy=3" 
+          title="Magical Gateway" 
+          frameborder="0" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+          referrerpolicy="strict-origin-when-cross-origin" 
+          allowfullscreen>
+        </iframe>
+        
+        <div class="absolute inset-0 bg-transparent z-10"></div>
+      </div>
+
     </div>
 
     <div class="absolute inset-0 z-10 pointer-events-none overflow-hidden">
@@ -19,7 +29,7 @@
       ></div>
     </div>
 
-    <div class="absolute inset-0 z-15 bg-black/30 pointer-events-none"></div>
+    <div class="absolute inset-0 z-15 bg-black/65 pointer-events-none"></div>
 
 
     <div ref="orangeOverlay" class="absolute inset-0 z-20 bg-orange-500 mix-blend-overlay opacity-0 pointer-events-none"></div>
@@ -42,7 +52,7 @@
         </span>
       </h1>
 
-      <p class="text-base sm:text-lg md:text-2xl text-orange-100/90 font-medium w-full max-w-md md:max-w-2xl mx-auto mb-8 md:mb-12 leading-relaxed drop-shadow-sm px-2 md:px-0">
+      <p class="text-base sm:text-lg md:text-2xl text-white font-medium w-full max-w-md md:max-w-2xl mx-auto mb-8 md:mb-12 leading-relaxed drop-shadow-md px-2 md:px-0">
         Stop juggling 5 different agencies. We handle your Development, Branding, and Content Production under one roof. Sit back, we got this.
       </p>
 
@@ -58,8 +68,8 @@
     </div>
     
     <div ref="scrollHint" class="absolute bottom-6 md:bottom-10 flex flex-col items-center gap-2 text-orange-300/70 text-xs md:text-sm font-bold tracking-widest animate-bounce z-30 pointer-events-none">
-      <p>SCROLL TO ENTER</p>
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 md:w-6 md:h-6">
+      <p class="drop-shadow-md">SCROLL TO ENTER</p>
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 md:w-6 md:h-6 drop-shadow-md">
         <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
       </svg>
     </div>
@@ -72,19 +82,18 @@ import { onMounted, onUnmounted, ref } from 'vue'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-// Pastikan path gambar benar
-import portalImage from '@/assets/images/image_4.webp' 
-
 gsap.registerPlugin(ScrollTrigger)
 
+// Refs untuk elemen HTML
 const heroSection = ref(null)
 const portalContainer = ref(null)
-const portalImageEl = ref(null)
+const portalVideoEl = ref(null)
 const heroContent = ref(null)
 const orangeOverlay = ref(null)
 const whiteFlash = ref(null)
 const scrollHint = ref(null)
 
+// Fungsi membuat partikel firefly random
 const getFireflyStyle = (i) => {
   const size = Math.random() * 6 + 2 + 'px' 
   return {
@@ -104,6 +113,7 @@ onMounted(() => {
   ctx = gsap.context(() => {
     
     const isMobile = window.innerWidth < 768
+    // Mobile butuh jarak scroll lebih pendek biar gak capek
     const scrollDistance = isMobile ? "+=1000" : "+=1500"
 
     const tl = gsap.timeline({
@@ -111,22 +121,25 @@ onMounted(() => {
         trigger: heroSection.value,
         start: "top top",
         end: scrollDistance, 
-        scrub: 1,
-        pin: true,
+        scrub: 1,      // Animasi mengikuti scroll bar
+        pin: true,     // Section diam saat discroll
         anticipatePin: 1,
       }
     })
 
+    // 1. Zoom in Container Video
     tl.to(portalContainer.value, {
-      scale: isMobile ? 15 : 25,
+      scale: isMobile ? 15 : 25, // Zoom factor
       ease: "power2.inOut",
     }, 0)
 
-    tl.to(portalImageEl.value, {
+    // 2. Blur Video saat di-zoom (Biar transisi smooth ke section bawah)
+    tl.to(portalVideoEl.value, {
       filter: "blur(20px)", 
       ease: "power1.in",
     }, 0)
 
+    // 3. Text & Scroll Hint menghilang ke atas
     tl.to([heroContent.value, scrollHint.value], {
       opacity: 0,
       y: -100,
@@ -135,11 +148,13 @@ onMounted(() => {
       duration: 0.4 
     }, 0)
 
+    // 4. Overlay Orange muncul
     tl.to(orangeOverlay.value, {
       opacity: 0.9, 
       ease: "power2.in",
     }, 0.2) 
 
+    // 5. Flash Putih (Transisi akhir)
     tl.to(whiteFlash.value, {
       opacity: 1,
       ease: "power1.in",
@@ -149,12 +164,11 @@ onMounted(() => {
 })
 
 onUnmounted(() => {
-  ctx.revert()
+  if(ctx) ctx.revert() // Bersihkan animasi saat pindah halaman
 })
 </script>
 
 <style scoped>
-/* Style tetap sama */
 .transform-origin-\[center_60\%\] {
   transform-origin: center 60%;
 }
