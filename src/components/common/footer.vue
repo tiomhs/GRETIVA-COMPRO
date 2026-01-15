@@ -27,9 +27,8 @@
 
           <div class="flex flex-col gap-4">
             <h4 class="font-bold text-orange-500 uppercase tracking-widest text-sm mb-2">Connect</h4>
-            <a href="#" class="text-gray-400 hover:text-orange-400 transition-colors">Instagram ↗</a>
-            <a href="#" class="text-gray-400 hover:text-blue-400 transition-colors">LinkedIn ↗</a>
-            <a href="#" class="text-gray-400 hover:text-sky-400 transition-colors">Twitter (X) ↗</a>
+            <a href="https://www.instagram.com/gretivagroup.id?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" class="text-gray-400 hover:text-orange-400 transition-colors">Instagram ↗</a>
+            <a href="https://www.linkedin.com/company/gretiva-artha-group/" class="text-gray-400 hover:text-blue-400 transition-colors">LinkedIn ↗</a>
           </div>
         </div>
       </div>
