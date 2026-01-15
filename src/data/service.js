@@ -45,10 +45,10 @@ export const groupedServices = [
         description: "Bikin benda mati jadi pinter. Smart home, automation, monitoring? Semua terkoneksi di HP.",
         image: imgIot,
         // THEME: DARK TECH (Hitam Pekat)
-        bgClass: "bg-[#121212]", 
+        bgClass: "bg-[#1212]", 
         borderClass: "border-gray-800",
         numberClass: "bg-orange-600 text-white", // Aksen Orange
-        textTitleClass: "text-white",
+        textTitleClass: "text-black",
         textDescClass: "text-gray-400"
       }
     ]
@@ -68,10 +68,10 @@ export const groupedServices = [
         description: "Konten viral, caption nendang, dan strategi yang bikin algoritma tunduk sama brand kamu.",
         image: imglike,
         // THEME: MODERN GREY (Abu Gelap)
-        bgClass: "bg-[#1f1f1f]", 
+        bgClass: "bg-[#1f1f]", 
         borderClass: "border-gray-700",
         numberClass: "bg-white text-black",
-        textTitleClass: "text-white",
+        textTitleClass: "text-black",
         textDescClass: "text-gray-400"
       },
       {
@@ -101,10 +101,10 @@ export const groupedServices = [
         description: "Visualisasi ide liar kamu ke bentuk 3D realistis atau 2D art yang eye-catching dan detail.",
         image: img3d,
         // THEME: DEEP BLACK (Hitam)
-        bgClass: "bg-[#121212]",
+        bgClass: "bg-[#1212]",
         borderClass: "border-gray-800",
         numberClass: "bg-orange-500 text-white",
-        textTitleClass: "text-white",
+        textTitleClass: "text-black",
         textDescClass: "text-gray-400"
       }
     ]
@@ -146,10 +146,10 @@ export const groupedServices = [
         description: "Pondasi beton & kerangka baja yang solid. Tulang punggung bangunan biar berdiri tegak.",
         image: imgStructure,
         // THEME: INDUSTRIAL (Abu Besi)
-        bgClass: "bg-[#2d2d2d]",
+        bgClass: "bg-[#2d2d]",
         borderClass: "border-gray-600",
         numberClass: "bg-gray-500 text-white",
-        textTitleClass: "text-white",
+        textTitleClass: "text-black",
         textDescClass: "text-gray-300"
       },
       {
@@ -190,10 +190,10 @@ export const groupedServices = [
         description: "Sulap lahan gersang jadi oase hijau. Taman estetik & hardscape yang bikin suasana adem.",
         image: imgLandscape,
         // THEME: EARTH (Hitam Natural) - Biar gambar hijaunya pop up
-        bgClass: "bg-[#111111]",
+        bgClass: "bg-[#1111]",
         borderClass: "border-gray-800",
         numberClass: "bg-white text-black",
-        textTitleClass: "text-white", 
+        textTitleClass: "text-black", 
         textDescClass: "text-gray-400"
       },
       {
