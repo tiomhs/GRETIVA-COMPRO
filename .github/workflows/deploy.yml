@@ -1,48 +1,37 @@
-name: Deploy to GitHub Pages
+name: Deploy to VPS
 
 on:
-  # Trigger workflow setiap kali ada push ke branch main
   push:
-    branches: [main]
-
-  # Izin untuk menjalankan workflow secara manual dari tab Actions
-  workflow_dispatch:
-
-permissions:
-  contents: write
+    branches:
+      - main  # Pastikan ini sesuai nama branch utama kamu (main atau master)
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Ambil kodingan dari repo
-      - name: Checkout 🛎️
-        uses: actions/checkout@v4
-
-      # 2. Install Node.js
-      - name: Setup Node.js ⚙️
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: 'npm'
-
-      # 3. Install Dependencies
-      - name: Install Dependencies 🔧
-        run: npm ci
-
-      # 4. Build Project (Hasilnya ada di folder dist)
-      - name: Build Project 🏗️
-        run: npm run build
-
-      # 5. (Opsional) Fix 404 Error untuk Vue Router di GitHub Pages
-      # Ini menduplikasi index.html jadi 404.html biar kalau refresh page gak error
-      - name: Fix 404 for SPA 🔧
-        run: cp dist/index.html dist/404.html
-
-      # 6. Deploy ke branch gh-pages
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: dist # Folder hasil build Vite
-          branch: gh-pages # Branch tujuan deploy (otomatis dibuat)
+    - name: Deploy via SSH
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        port: 22
+        script: |
+          # 1. Masuk ke folder project
+          cd ~/GRETIVA-COMPRO
+          
+          # 2. Reset paksa agar sama persis dengan GitHub (Menghindari konflik)
+          git fetch origin
+          git reset --hard origin/main
+          
+          # 3. Install ulang dependensi (jaga-jaga ada library baru)
+          npm install
+          
+          # 4. Build Project
+          npm run build
+          
+          # 5. Restart Nginx (Opsional, biasanya tidak perlu kalau cuma file statis, tapi bagus untuk memastikan cache bersih)
+          sudo systemctl reload nginx
+          
+          echo "🚀 Deployment Berhasil!"
