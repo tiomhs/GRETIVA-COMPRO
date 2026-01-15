@@ -19,48 +19,72 @@
         
         <div 
           ref="cardsTrack" 
-          class="flex flex-col md:flex-row gap-8 md:gap-12 px-6 md:px-8 w-full md:w-max items-center md:items-stretch"
+          class="flex flex-col md:flex-row gap-12 md:gap-20 px-6 md:px-8 w-full md:w-max items-center md:items-stretch"
         >
           
           <div 
-            v-for="(service, index) in services" 
-            :key="index"
-            class="group relative w-full max-w-[350px] md:w-[450px] min-h-[450px] rounded-[2.5rem] md:rounded-[3rem] p-8 md:p-10 flex flex-col justify-between transition-transform duration-300 hover:scale-[1.02] border-2 shrink-0"
-            :class="[service.bgClass, service.borderClass]"
+            v-for="(group, gIndex) in services" 
+            :key="gIndex"
+            class="flex flex-col md:flex-row gap-8 md:gap-12 md:items-center"
           >
-            <div class="relative z-10">
-              <div 
-                class="w-12 h-12 md:w-14 md:h-6 rounded-full flex items-center justify-center font-bold text-lg mb-6 shadow-sm transition-colors"
-                :class="service.numberClass"
-              >
-                0{{ index + 1 }}
+            
+            <div class="w-full md:w-[300px] flex flex-col justify-center md:h-[450px] p-4 md:p-0 text-center md:text-left md:sticky md:left-0">
+              <span class="text-xs font-bold tracking-widest uppercase mb-2 opacity-60" :class="group.colorClass">
+                 0{{ gIndex + 1 }} / Category
+              </span>
+              <h3 class="text-3xl md:text-5xl font-black leading-tight mb-4 text-gray-900">
+                {{ group.categoryTitle }}
+              </h3>
+              <p class="text-gray-500 text-sm md:text-base font-medium">
+                {{ group.categoryDesc }}
+              </p>
+              <div class="h-1 w-20 bg-gray-200 mt-6 rounded-full mx-auto md:mx-0">
+                 <div class="h-full w-10 rounded-full" :class="group.bgClass.replace('bg-', 'bg-orange-500')"></div> 
+              </div>
+            </div>
+
+            <div 
+              v-for="(service, sIndex) in group.items" 
+              :key="sIndex"
+              class="group relative w-full max-w-[350px] md:w-[450px] min-h-[450px] rounded-[2.5rem] md:rounded-[3rem] p-8 md:p-10 flex flex-col justify-between transition-transform duration-300 hover:scale-[1.02] border-2 shrink-0 bg-white"
+              :class="[service.bgClass, service.borderClass]"
+            >
+              <div class="relative z-10">
+                <div 
+                  class="w-12 h-12 md:w-14 md:h-6 rounded-full flex items-center justify-center font-bold text-lg mb-6 shadow-sm transition-colors"
+                  :class="service.numberClass"
+                >
+                  {{ gIndex + 1 }}.{{ sIndex + 1 }}
+                </div>
+
+                <h3 
+                  class="text-2xl font-black mb-3 leading-tight"
+                  :class="service.textTitleClass"
+                >
+                  {{ service.title }}
+                </h3>
+
+                <p 
+                  class="text-base font-medium leading-relaxed"
+                  :class="service.textDescClass"
+                >
+                  {{ service.description }}
+                </p>
               </div>
 
-              <h3 
-                class="text-2xl font-black mb-3 leading-tight"
-                :class="service.textTitleClass"
-              >
-                {{ service.title }}
-              </h3>
+              <div class="relative z-10 flex justify-end mt-4">
+                <img 
+                  :src="service.image" 
+                  :alt="service.title" 
+                  class="w-32 h-32 object-contain transform group-hover:rotate-6 transition-transform duration-500 animate-float custom-shadow"
+                />
+              </div>
 
-              <p 
-                class="text-base font-medium leading-relaxed"
-                :class="service.textDescClass"
-              >
-                {{ service.description }}
-              </p>
             </div>
 
-            <div class="relative z-10 flex justify-end mt-4">
-              <img 
-                :src="service.image" 
-                :alt="service.title" 
-                class="w-32 h-32 object-contain transform group-hover:rotate-6 transition-transform duration-500 animate-float custom-shadow"
-              />
-            </div>
+            <div class="hidden md:block w-1 h-full border-r border-dashed border-gray-300 mx-4"></div>
 
           </div>
-
           <div class="hidden md:block w-[50vw] flex-shrink-0"></div>
 
         </div>
@@ -78,7 +102,8 @@
 import { onMounted, onUnmounted, ref } from 'vue'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import services from '@/data/service.js'
+// GANTI IMPORTNYA KE YANG BARU
+import { groupedServices as services } from '@/data/service.js' 
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -90,11 +115,10 @@ let ctx;
 onMounted(() => {
   ctx = gsap.context(() => {
     
-    // DETEKSI MOBILE / DESKTOP
-    // Menggunakan ScrollTrigger.matchMedia() adalah cara paling robust
     ScrollTrigger.matchMedia({
       
-      // Desktop Only (Min Width 768px): Aktifkan Horizontal Scroll
+      // Logic GSAP tidak perlu berubah karena dia menghitung total lebar cardsTrack
+      // Apapun isi didalamnya (Category Title + Cards), dia akan scroll sampai habis
       "(min-width: 768px)": function() {
         const totalScroll = cardsTrack.value.scrollWidth - window.innerWidth;
         
@@ -105,15 +129,14 @@ onMounted(() => {
             trigger: serviceSection.value,
             pin: true,
             scrub: 1, 
-            end: "+=3000", 
+            end: () => "+=" + cardsTrack.value.scrollWidth, // Sedikit tweak agar durasi scroll pas dengan panjang konten
             anticipatePin: 1
           }
         })
       },
 
-      // Mobile (Max Width 767px): Matikan/Jangan lakukan apa-apa (Native Scroll Vertikal)
       "(max-width: 767px)": function() {
-        // Tidak ada GSAP animation, biarkan scroll biasa
+        // Mobile native scroll
       }
       
     });
@@ -122,7 +145,7 @@ onMounted(() => {
 })
 
 onUnmounted(() => {
-  ctx.revert()
+  if(ctx) ctx.revert()
 })
 </script>
 
