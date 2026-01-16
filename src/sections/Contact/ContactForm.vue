@@ -15,8 +15,7 @@
         <div class="group p-8 rounded-[2rem] bg-white/5 border border-white/10 hover:border-orange-500/50 transition-colors">
           <h3 class="text-gray-500 text-sm font-bold uppercase tracking-widest mb-4">HQ - The Lab</h3>
           <p class="text-xl font-medium leading-relaxed">
-            Jl. Danau Tamblingan,<br>
-            Sanur, Bali - Indonesia.<br>
+            Jl. Darmasaba Permai, Sibang Gede, Kec. Abiansemal, Kabupaten Badung, Bali 80352
             <span class="text-gray-500 text-sm mt-2 block">(Coffee is on us)</span>
           </p>
         </div>
@@ -90,8 +89,8 @@
 import { ref } from 'vue'
 
 const socials = [
-  { name: "Instagram", link: "#" },
-  { name: "LinkedIn", link: "#" },
+  { name: "Instagram", link: "https://www.instagram.com/gretivagroup.id?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" },
+  { name: "LinkedIn", link: "https://www.linkedin.com/company/gretiva-artha-group/" },
 ]
 
 // 1. STATE FORM
@@ -102,7 +101,7 @@ const form = ref({
 })
 
 // 2. NOMOR WHATSAPP TUJUAN (GANTI DENGAN NOMOR KAMU)
-const whatsappNumber = "6281236573953" // Contoh: 6281234567890
+const whatsappNumber = "6281337084079" // Contoh: 6281234567890
 
 // 3. FUNCTION KIRIM KE WA
 const sendToWhatsApp = () => {
