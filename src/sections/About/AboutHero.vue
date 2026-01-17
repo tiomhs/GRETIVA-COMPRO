@@ -21,7 +21,7 @@
             <span class="relative inline-flex rounded-full h-3 w-3 bg-orange-500"></span>
           </span>
           <span class="text-xs font-bold text-gray-900 tracking-widest uppercase">
-            Est. 2024 • Gretiva Artha Group
+            Est. 2022 • Gretiva Artha Group
           </span>
         </div>
         
