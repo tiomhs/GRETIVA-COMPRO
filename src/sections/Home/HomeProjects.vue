@@ -84,9 +84,14 @@
                 </p>
               </div>
 
-              <button class="w-full md:w-auto px-8 py-4 bg-black text-white rounded-full font-bold text-sm hover:bg-orange-600 hover:scale-105 transition-all duration-300 shadow-lg">
-                See Case Study
-              </button>
+              <a 
+                :href="project.link" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="w-full md:w-auto px-8 py-4 bg-black text-white rounded-full font-bold text-sm hover:bg-orange-600 hover:scale-105 transition-all duration-300 shadow-lg text-center"
+              >
+                Visit Website ↗
+              </a>
             </div>
 
           </div>
@@ -99,28 +104,31 @@
 </template>
 
 <script setup>
-import { onMounted, onUnmounted, ref } from 'vue'
+import { onMounted, onUnmounted } from 'vue'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+// Import data project yang sudah dibuat
+import projects from '@/data/project.js'
 
 gsap.registerPlugin(ScrollTrigger)
-import projects from '@/data/project.js'
+
 let ctx;
 
 onMounted(() => {
   ctx = gsap.context(() => {
     
-    // 1. Image Parallax (Gambar gerak lambat di dalam kartu)
+    // Image Parallax (Gambar gerak lambat di dalam kartu)
+    // Efek: Gambar seolah-olah "tertinggal" sedikit saat scroll
     const images = gsap.utils.toArray(".project-image")
     images.forEach((img) => {
       gsap.to(img, {
-        y: "-20%", 
+        y: "-20%", // Menggerakkan gambar ke atas sebanyak 20%
         ease: "none",
         scrollTrigger: {
           trigger: img.parentElement,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: true, 
+          start: "top bottom", // Mulai saat bagian atas gambar masuk dari bawah layar
+          end: "bottom top",   // Selesai saat bagian bawah gambar keluar dari atas layar
+          scrub: true,         // Animasi terikat dengan scroll bar
         }
       })
     })
@@ -129,6 +137,6 @@ onMounted(() => {
 })
 
 onUnmounted(() => {
-  ctx.revert()
+  if (ctx) ctx.revert() // Bersihkan animasi saat pindah halaman
 })
 </script>
