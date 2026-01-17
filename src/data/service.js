@@ -18,9 +18,9 @@ import imgRefurbish from '@/assets/images/imgRefurbish.png'
 import imgRenov from '@/assets/images/imgRenov.png'
 
 // Placeholder untuk Medical
-import imgMedical1 from '@/assets/images/img-laptop.png' 
-import imgMedical2 from '@/assets/images/img-iot.png' 
-import imgMedical3 from '@/assets/images/img-like.png' 
+import imgMedical1 from '@/assets/images/imgMedical1.png' 
+import imgMedical2 from '@/assets/images/imgMedical2.png' 
+import imgMedical3 from '@/assets/images/imgMedical3.png' 
 
 export const groupedServices = [
 
@@ -51,7 +51,7 @@ export const groupedServices = [
         bgClass: "bg-black", 
         borderClass: "border-gray-700",
         numberClass: "bg-rose-500 text-white",
-        textTitleClass: "text-white",
+        textTitleClass: "text-black",
         textDescClass: "text-gray-400"
       },
       {
