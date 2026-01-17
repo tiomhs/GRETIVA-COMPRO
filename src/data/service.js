@@ -48,7 +48,7 @@ export const groupedServices = [
         description: "Kolaborasi teknologi medis untuk unit onkologi RSUP Ngoerah & Korea.",
         image: imgMedical2,
         // Ganti Hex #0f172a jadi bg-slate-900
-        bgClass: "bg-slate-900", 
+        bgClass: "bg-black", 
         borderClass: "border-gray-700",
         numberClass: "bg-rose-500 text-white",
         textTitleClass: "text-white",
@@ -278,10 +278,10 @@ export const groupedServices = [
         title: "Renovation",
         description: "Bosen suasana lama? Kita rombak total interior & eksterior biar makin fresh.",
         image: imgRenov,
-        bgClass: "bg-orange-700",
+        bgClass: "bg-white",
         borderClass: "border-orange-500",
         numberClass: "bg-white text-orange-800 font-bold",
-        textTitleClass: "text-white",
+        textTitleClass: "text-black",
         textDescClass: "text-orange-100"
       }
     ]
