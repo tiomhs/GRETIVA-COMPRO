@@ -104,21 +104,40 @@
 </template>
 
 <script setup>
-import { onMounted, onUnmounted } from 'vue'
+import { onMounted, onUnmounted, ref, nextTick } from 'vue'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-// Import data project yang sudah dibuat
-import projects from '@/data/project.js'
+import { fetchProjects } from '@/services/api'
 
 gsap.registerPlugin(ScrollTrigger)
 
+const projects = ref([])
 let ctx;
 
-onMounted(() => {
+const loadData = async () => {
+  try {
+    const response = await fetchProjects();
+    projects.value = response.data.map(p => ({
+      id: p.id,
+      title: p.name,
+      // Gunakan scope_of_work sebagai kategori, ambil item pertama jika ada koma, atau fallback ke status
+      category: p.scope_of_work ? p.scope_of_work.split(',')[0].trim() : (p.status === 'completed' ? 'Completed Project' : 'Ongoing'),
+      desc: p.description,
+      image: p.imageUrl,
+      link: p.link
+    }));
+
+    await nextTick();
+    initGSAP();
+
+  } catch (error) {
+    console.error("Failed to fetch projects:", error);
+  }
+}
+
+const initGSAP = () => {
   ctx = gsap.context(() => {
-    
     // Image Parallax (Gambar gerak lambat di dalam kartu)
-    // Efek: Gambar seolah-olah "tertinggal" sedikit saat scroll
     const images = gsap.utils.toArray(".project-image")
     images.forEach((img) => {
       gsap.to(img, {
@@ -132,8 +151,11 @@ onMounted(() => {
         }
       })
     })
-
   })
+}
+
+onMounted(() => {
+  loadData();
 })
 
 onUnmounted(() => {

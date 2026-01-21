@@ -108,11 +108,11 @@ onMounted(() => {
   -webkit-text-stroke: 2px #111;
 }
 
-@media (max-width: 768px) {
-  .stroke-text-black {
-    -webkit-text-stroke: 1px #111;
+  @media (max-width: 768px) {
+    .stroke-text-black {
+      -webkit-text-stroke: 1px #111;
+    }
   }
-}
 
 /* ANIMASI EXISTING (CSS) */
 @keyframes float {
