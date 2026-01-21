@@ -58,11 +58,22 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import faqs from '@/data/faqs.js'
+import { ref, onMounted } from 'vue'
+import { fetchFaqs } from '@/services/api'
+
+const faqs = ref([])
 
 // STATE ACCORDION
 const openIndex = ref(0) // Default pertanyaan pertama terbuka (0), atau null jika mau tertutup semua
+
+const loadFaqs = async () => {
+    try {
+        const response = await fetchFaqs()
+        faqs.value = response.data
+    } catch (error) {
+        console.error("Failed to fetch FAQs:", error)
+    }
+}
 
 const toggleFaq = (index) => {
   if (openIndex.value === index) {
@@ -72,4 +83,7 @@ const toggleFaq = (index) => {
   }
 }
 
+onMounted(() => {
+    loadFaqs()
+})
 </script>

@@ -158,8 +158,34 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
-import projects from '@/data/AllProject.js'
+import { ref, computed, onMounted } from 'vue'
+import { fetchProjects } from '@/services/api'
+
+const projects = ref([])
+
+const loadData = async () => {
+  try {
+    const response = await fetchProjects();
+    projects.value = response.data.map(p => ({
+      id: p.id,
+      title: p.name,
+      status: p.status ? p.status.charAt(0).toUpperCase() + p.status.slice(1) : 'Unknown', // Capitalize
+      year: p.years || new Date(p.startDate).getFullYear().toString(),
+      province: p.province || 'Unknown',
+      location: p.province || 'Indonesia', // Fallback location
+      scope: p.scope_of_work ? p.scope_of_work.split(',').map(s => s.trim()) : [],
+      desc: p.description,
+      image: p.imageUrl,
+      link: p.link
+    }));
+  } catch (error) {
+    console.error("Failed to fetch projects:", error);
+  }
+}
+
+onMounted(() => {
+  loadData();
+})
 
 const filters = ref({
   status: 'All',
@@ -169,14 +195,14 @@ const filters = ref({
 
 const options = computed(() => {
   return {
-    status: [...new Set(projects.map(p => p.status))].sort(),
-    year: [...new Set(projects.map(p => p.year))].sort().reverse(),
-    province: [...new Set(projects.map(p => p.province))].sort()
+    status: [...new Set(projects.value.map(p => p.status))].sort(),
+    year: [...new Set(projects.value.map(p => p.year))].sort().reverse(),
+    province: [...new Set(projects.value.map(p => p.province))].sort()
   }
 })
 
 const filteredProjects = computed(() => {
-  return projects.filter(project => {
+  return projects.value.filter(project => {
     const matchStatus = filters.value.status === 'All' || project.status === filters.value.status;
     const matchYear = filters.value.year === 'All' || project.year === filters.value.year;
     const matchProvince = filters.value.province === 'All' || project.province === filters.value.province;
@@ -193,9 +219,10 @@ const resetFilters = () => {
 }
 
 const getStatusColor = (status) => {
-  if(status === 'Completed') return 'bg-green-100 text-green-700 border-green-200'
-  if(status === 'On Going') return 'bg-orange-100 text-orange-700 border-orange-200'
-  if(status === 'Maintenance') return 'bg-blue-100 text-blue-700 border-blue-200'
+  const s = status ? status.toLowerCase() : '';
+  if(s === 'completed') return 'bg-green-100 text-green-700 border-green-200'
+  if(s === 'on going' || s === 'ongoing') return 'bg-orange-100 text-orange-700 border-orange-200'
+  if(s === 'maintenance') return 'bg-blue-100 text-blue-700 border-blue-200'
   return 'bg-gray-100 text-gray-700'
 }
 </script>
